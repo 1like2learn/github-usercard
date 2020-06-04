@@ -3,7 +3,18 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+function userCard (username) {
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(response =>{
+    console.log(response)
+    buildCard(response)
 
+  })
+  .catch(error =>{
+    debugger
+    console.log(error)
+  })
+}
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -28,7 +39,24 @@
     user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [ '1like2learn', 
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell',
+  'MaryamMosstoufi',
+  'sage-jordan',
+  'jduell12',
+  'emilioramirezeguia',
+  'Roboblox',
+  'Elisa-Alvarez',
+  'stephaniegatt'
+];
+
+  followersArray.forEach(item =>{
+    userCard(item)
+  })
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
@@ -49,6 +77,45 @@ const followersArray = [];
       </div>
     </div>
 */
+function buildCard(dataObject){
+  const card = document.createElement('div')
+  const image = document.createElement('img')
+  const cardInfo = document.createElement('div')
+  const name = document.createElement('h3')
+  const username = document.createElement('p')
+  const location = document.createElement('p')
+  const profile = document.createElement('p')
+  const link = document.createElement('a')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+
+  card.appendChild(image)
+  card.appendChild(cardInfo)
+  cardInfo.appendChild(name)
+  cardInfo.appendChild(username)
+  cardInfo.appendChild(location)
+  cardInfo.appendChild(profile)
+  profile.appendChild(link)
+  cardInfo.appendChild(followers)
+  cardInfo.appendChild(following)
+  cardInfo.appendChild(bio)
+
+  card.classList.add('card')
+  cardInfo.classList.add('card-info')
+  name.classList.add('name')
+  username.classList.add('username')
+
+  image.src = dataObject.data.avatar_url
+  name.textContent = dataObject.data.name
+  username.textContent = dataObject.data.login
+  location.textContent = `Location: ${dataObject.data.location}`
+  link.textContent = dataObject.data.html_url
+  followers.textContent = `Followers: ${dataObject.data.followers}`
+  following.textContent = `Following: ${dataObject.data.following}`
+  bio.textContent = `Bio: ${dataObject.data.bio}`
+  document.querySelector('.cards').appendChild(card)
+}
 
 /*
   List of LS Instructors Github username's:
