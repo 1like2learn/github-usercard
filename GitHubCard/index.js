@@ -6,15 +6,32 @@
 function userCard (username) {
   axios.get(`https://api.github.com/users/${username}`)
   .then(response =>{
-    console.log(response)
+    // console.log(response)
     buildCard(response)
 
   })
   .catch(error =>{
-    debugger
+    // debugger
     console.log(error)
   })
 }
+
+function getFollowers(username){
+  axios.get(`https://api.github.com/users/${username}/followers`)
+  .then(response =>{
+    // console.log(response)
+    array = response.data
+    array.forEach(object=>{
+      followersArray.push(object.login)
+    })
+  })
+  .catch(error =>{
+    // debugger
+    console.log(error)
+  })
+}
+// getFollowers('tetondan')
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
