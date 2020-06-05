@@ -3,34 +3,9 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-function userCard (username) {
-  axios.get(`https://api.github.com/users/${username}`)
-  .then(response =>{
-    // console.log(response)
-    buildCard(response)
 
-  })
-  .catch(error =>{
-    // debugger
-    console.log(error)
-  })
-}
 
-function getFollowers(username){
-  axios.get(`https://api.github.com/users/${username}/followers`)
-  .then(response =>{
-    // console.log(response)
-    array = response.data
-    array.forEach(object=>{
-      followersArray.push(object.login)
-    })
-  })
-  .catch(error =>{
-    // debugger
-    console.log(error)
-  })
-}
-// getFollowers('tetondan')
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -56,24 +31,50 @@ function getFollowers(username){
     user, and adding that card to the DOM.
 */
 
-const followersArray = [ '1like2learn', 
+let followersArray = [ '1like2learn', 
   'tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
-  'bigknell',
-  'MaryamMosstoufi',
-  'sage-jordan',
-  'jduell12',
-  'emilioramirezeguia',
-  'Roboblox',
-  'Elisa-Alvarez',
-  'stephaniegatt'
+  // 'dustinmyers',
+  // 'justsml',
+  // 'luishrd',
+  // 'bigknell',
+  // 'MaryamMosstoufi',
+  // 'sage-jordan',
+  // 'jduell12',
+  // 'emilioramirezeguia',
+  // 'Roboblox',
+  // 'Elisa-Alvarez',
+  // 'stephaniegatt'
 ];
 
-  followersArray.forEach(item =>{
-    userCard(item)
+function getFollowers(username){
+  axios.get(`https://api.github.com/users/${username}/followers`)
+  .then(response =>{
+    console.log(response.data)
+    let array = response.data
+    array.forEach(object=>{
+      userCard(object.login)
+    })
   })
+  .catch(error =>{
+    debugger
+    console.log(error)
+  })
+}
+getFollowers('sage-jordan')
+
+function userCard (username) {
+  axios.get(`https://api.github.com/users/${username}`)
+  .then(response =>{
+    // console.log(response)
+    buildCard(response)
+
+  })
+  .catch(error =>{
+    debugger
+    console.log(error)
+  })
+}
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
